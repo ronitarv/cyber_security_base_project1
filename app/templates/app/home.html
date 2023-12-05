@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>Hello, World!</p>
+        <form action="post/" method="GET">
+            {% csrf_token %}
+            <input type="text", name="message">
+            <br>
+            <input type="checkbox", name="is_public">
+            <p style="display:inline">check to post public</p>
+            <br>
+            <input type="submit", value="Submit"/>
+        </form>
+        <br>
+        <form action="logout/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Logout"/>
+        </form>
+    </body>
+</html>
