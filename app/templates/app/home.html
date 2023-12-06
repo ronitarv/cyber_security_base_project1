@@ -2,19 +2,33 @@
 <html>
     <body>
         <p>Hello, World!</p>
-        <form action="post/" method="GET">
+        <form action="post/" method="POST">
             {% csrf_token %}
-            <input type="text", name="message">
-            <br>
-            <input type="checkbox", name="is_public">
-            <p style="display:inline">check to post public</p>
-            <br>
-            <input type="submit", value="Submit"/>
-        </form>
-        <br>
+            <input type="text" name="title" size="30"><p style="display: inline;"> Title</p><br>
+            <textarea name="content" rows="5" cols="30"></textarea><p style="display: inline;"> Content</p><br>
+            <input type="checkbox" name="is_public">
+            <p style="display:inline;">Check to post public</p><br>
+            <input type="submit" value="Submit"/>
+        </form><br>
+        <form action="open/" method="GET">
+            {% csrf_token %}
+            <select name="selected_post">
+            {% for title in titles %}
+                <option value="{{title}}">{{title | safe}}</option>
+            {% endfor %}
+            </select>
+            <input type="submit" value="View"/>
+        </form><br>
         <form action="logout/" method="POST">
             {% csrf_token %}
             <input type="submit" value="Logout"/>
+        </form><br>
+        {% if post_content %}
+            <p>{{post_content | safe}}</p>
+        {% endif %}
+        <form action="delete/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Delete posts">
         </form>
     </body>
 </html>
