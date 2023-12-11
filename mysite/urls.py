@@ -19,8 +19,6 @@ from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("login/", LoginView.as_view(template_name="app/login.html")),
-    path("logout/", LogoutView.as_view(next_page="/")),
+    path("admin/", admin.site.urls), # Not in public app
     path("", include("app.urls")),
 ]

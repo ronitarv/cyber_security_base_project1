@@ -1,0 +1,10 @@
+<h3>Verify token sent to ... write token in text field and press submit</h3>
+
+<form method="POST" action="/verify-confirm/">
+    {% csrf_token %}
+    <input type="text" name="tfa_token">
+    <button type="submit">Submit</button>
+</form><br>
+<p>The token could be sent for example by sms or email, however creating email accounts just for this project seems like a waste of resourses</p> 
+<p>Therefore the token is just displayed down bellow for the functionality to work. It should of course NOT be done like this in a real-life application</p><br>
+<h3>{{not_in_real_app_give_token}}</h3>
