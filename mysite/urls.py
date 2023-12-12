@@ -19,6 +19,6 @@ from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
-    path("admin/", admin.site.urls), # Not in public app
+    #path("admin/", admin.site.urls), # Remove row to fix security misconfiguration vuln
     path("", include("app.urls")),
 ]

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)v^1-si5h2@ts%j#o-t@!pr_)aq1b41spgvdb8q!wyh$-!#dec'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # Remove row to fix security misconfiguration vuln
 
 ALLOWED_HOSTS = []
 
@@ -32,13 +32,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "app.apps.AppConfig",
-    'django.contrib.admin', # Not in public app
+    #'django.contrib.admin', # Remove row to fix security misconfiguration vuln
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'axes',
+    #'axes', # Brute-force prevention
 ]
 
 MIDDLEWARE = [
@@ -49,14 +49,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'axes.middleware.AxesMiddleware',
+    #'axes.middleware.AxesMiddleware', # Brute-force prevention
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
-    'axes.backends.AxesStandaloneBackend',
-
-    # Django ModelBackend is the default authentication backend.
+    #'axes.backends.AxesStandaloneBackend', # Brute-force prevention
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -135,4 +132,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AXES_COOLOFF_TIME = 2
+# AXES_COOLOFF_TIME = 2 # Brute-force prevention

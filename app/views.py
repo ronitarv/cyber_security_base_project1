@@ -16,6 +16,7 @@ from django.core.mail import EmailMessage
 from django.contrib import messages
 from .models import Post
 from .forms import LoginForm, UserCreationForm
+from django.contrib.auth.backends import ModelBackend
 
 import string
 import random
@@ -41,20 +42,23 @@ def post(request):
             is_public = False
             if ("is_public" in request.POST):
                 is_public = True
-            with connection.cursor() as cursor:
-                cursor.execute(f"INSERT INTO app_post (publisher_id, title, content, is_public) VALUES ({request.user.id}, '{request.POST.get('title')}', '{request.POST.get('content')}', {is_public})")
-            # post = Post(publisher = request.user, title = request.POST.get("title"), content = request.POST.get("content"), is_public=is_public)
-            # post.save()
+            with connection.cursor() as cursor: # SQL injection possible
+                cursor.execute(f"INSERT INTO app_post (publisher_id, title, content, is_public) VALUES ({request.user.id}, '{request.POST.get('title')}', '{request.POST.get('content')}', {is_public})") # SQL injection possible
+            #post = Post(publisher = request.user, title = request.POST.get("title"), content = request.POST.get("content"), is_public=is_public) # Fix for SQL injection
+            #post.save() # Fix for SQL injection
     return redirect("/")
 
 @login_required
 @csrf_protect
 def open(request):
     post = Post.objects.get(title=request.GET.get("selected_post"))
-    request.session["post_content"] = post.content
+    request.session["post_content"] = post.content # Broken privilages, private posts can be accessed by anyone
+    #if (post.publisher.pk == request.user.pk or post.is_public is True): # Fixes broken privilages to view private posts
+    #    request.session["post_content"] = post.content # Fixes broken privilages to view private posts
 
     return redirect("/")
 
+# Functions for 2FA ---------------
 @csrf_protect
 def verify(request):
     request.session["tfa_token"] = "".join(random.choice(string.ascii_lowercase) for i in range(8))
@@ -70,8 +74,10 @@ def verify_confirm(request):
         "tfa_token" in request.session and request.session["tfa_token"] == request.POST.get("tfa_token")):
         user = User.objects.get(pk=request.session["user_pk"])
         if user:
-            login(request, user)
+            login(request, user, backend="django.contrib.auth.backends.ModelBackend")
     return redirect("/")
+
+# -------------------
 
 @csrf_protect
 def user_login(request):
@@ -83,14 +89,10 @@ def user_login(request):
             #try:
             user = authenticate(request=request, username=username, password=password)
             if user is not None:
-                request.session["user_pk"] = user.pk
-                return redirect('/verify')
-            # except LockedOut:
-            #     messages.warning(request, "Account has been locked out for too many failed login attempts")
-            # elif "try_count" not in request.session:
-            #     request.session["try_count"] = 1
-            # else:
-            #     request.session["try_count"] += 1
+                # login(request, user) # Login without 2FA
+                # return redirect("/") # Login without 2FA
+                request.session["user_pk"] = user.pk # Login with 2FA
+                return redirect('/verify') # Login with 2FA
     else:
         form = LoginForm()
     return render(request, 'app/login.html', {'form': form})
@@ -108,7 +110,7 @@ def user_signup(request):
             return redirect('login')
     else:
         form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'app/signup.html', {'form': form})
 
 
 # FOR DEBUGGING ------------------------------------------------

@@ -10,11 +10,12 @@
             <p style="display:inline;">Check to post public</p><br>
             <input type="submit" value="Submit"/>
         </form><br>
-        <form action="open/" method="GET">
+        <form action="open/" method="GET"> <!-- Method should be POST -->
             {% csrf_token %}
             <select name="selected_post">
             {% for title in titles %}
-                <option value="{{title}}">{{title | safe}}</option>
+                <option value="{{title}}">{{title | safe}}</option> <!--XSS possible-->
+                <!-- <option value="{{title}}">{{title}}</option> --> <!--XSS not possible-->
             {% endfor %}
             </select>
             <input type="submit" value="View"/>
@@ -24,7 +25,8 @@
             <input type="submit" value="Logout"/>
         </form><br>
         {% if post_content %}
-            <p>{{post_content | safe}}</p>
+            <p>{{post_content | safe}}</p> <!--XSS possible-->
+            <!-- <p>{{post_content}}</p> --> <!--XSS not possible-->
         {% endif %}
         <form action="delete/" method="POST">
             {% csrf_token %}
