@@ -89,10 +89,10 @@ def user_login(request):
             #try:
             user = authenticate(request=request, username=username, password=password)
             if user is not None:
-                # login(request, user) # Login without 2FA
-                # return redirect("/") # Login without 2FA
-                request.session["user_pk"] = user.pk # Login with 2FA
-                return redirect('/verify') # Login with 2FA
+                login(request, user) # Login without 2FA
+                return redirect("/") # Login without 2FA
+                #request.session["user_pk"] = user.pk # Login with 2FA
+                #return redirect('/verify') # Login with 2FA
     else:
         form = LoginForm()
     return render(request, 'app/login.html', {'form': form})
