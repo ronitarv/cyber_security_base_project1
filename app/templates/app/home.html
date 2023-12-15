@@ -28,9 +28,5 @@
             <p>{{post_content | safe}}</p> <!--XSS possible-->
             <!-- <p>{{post_content}}</p> --> <!--XSS not possible-->
         {% endif %}
-        <!-- <form action="delete/" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="Delete posts">
-        </form> -->
     </body>
 </html>

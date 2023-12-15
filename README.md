@@ -100,6 +100,9 @@ The fix is to either remove the superuser or change the username and password to
 
 ## XSS
 
+title XSS - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/templates/app/home.html#L18
+content XSS - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/templates/app/home.html#L29
+
 XSS involves inputting malicius html or javascript to a application so that it can result in actions performed by the malicous input on another user or possibly higher privilaged user. The application involves a flaw where when title or content inputted it can be parsed as code when displayed in home.html. When inputted to the title the application will execute the malicious code when the root of the website is loaded as the drop-down menu which has the titles is loaded. The content is only loaded after a user has selected it from the drop-down menu and opened it.
 
 XSS in the application is possible because the user posts title and content are displayed as safe so that it doesn't escape the user input from the html code. If safe is not specified the tested XSS scripts doesn't work anymore and the scripts are just displayed in the content as text.
