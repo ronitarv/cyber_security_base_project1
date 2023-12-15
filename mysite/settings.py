@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)v^1-si5h2@ts%j#o-t@!pr_)aq1b41spgvdb8q!wyh$-!#dec'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # Remove row to fix security misconfiguration vuln
+DEBUG = True # Set to false to fix security misconfiguration vuln
 
 ALLOWED_HOSTS = []
 
@@ -133,3 +133,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AXES_COOLOFF_TIME = 2 # Brute-force prevention
+
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Logout user when browser closed
+# SESSION_COOKIE_AGE = 60 # Logout user after 60
+# SESSION_SAVE_EVERY_REQUEST = True # Reset cookie age when making a request
