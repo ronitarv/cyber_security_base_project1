@@ -67,5 +67,16 @@ The SQL query should at least parameterized so that the query is seperated from 
 
 ## Broken Authentication
 
+2FA - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/views.py#L94
+Signup - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/views.py#L105
+Brute-force prevention - https://github.com/ronitarv/cyber_security_base_project1/blob/main/mysite/settings.py#L135
+Session logout - https://github.com/ronitarv/cyber_security_base_project1/blob/main/mysite/settings.py#L137
 
-Broken Authentication involve basically all factor that might help and attacker access a site with more privilages than given or access an other users account. A big vulnerability in 
+
+Broken Authentication involve basically all factor that might help and attacker access a site with more privilages than given or access an other users account. A big flaw in the application is not using two-factor authentication. Without two-factor authentication attackers can access a users account just by knowing their username and password. A big security risk is also weak passwords, which will ease brute-force attacks. Using short passwords will make guessing random passwords easier and using common passwords will make brute-force from a password list easy. The application also has a flaw where the is not limitation to how many guesses can be made and therefore brute-force is possible in the first place. The application also doesn't log you out automaticly after brower closed or after some time idle. If automatic logout is not implemented, it can result harm in public computers where the user could forget to logout and some stranger could use the application authenticated as the user.
+
+Implementing two-factor authentication can prevent Brute-force attacks and also protect users if theirs passwords are somehow leaked. 2FA can be made in many ways and the most common is to use some kind of code sent or stored to a safe place where the owner can only access. This could be sms, email or an authenticator app. The application implements a code that could be sent somewhere to the owner, however in the project creating many emails just for this or sharing sms doesn't seem like a good idea and therefore if the 2FA is uncommented and tested the code will just appear in the same page as it will need to be inputted.
+
+The signup should include some requirements for passwords. In the application Django UserCreationForm is used with has pretty good requirements for a password and it also makes sure it is not a common password. Brute-force prevention by limiting guess attempts can be made using the axes module. To implement the axes module it needs to be added to project settings.py installed apps, middleware and authetication backends. The number of guesses is set to 3 and the cooldown time in case if the user guesses too many times is 2 hours. Implementing this should prevent guessing by brute-force. Automatic logins will prevent the problem of accidentaly staying authenticated to an application. In the application the user is logged out if the browser is closed and also if the user is idle for certain amount of time which is set to 60 seconds.
+
+The application also has a super user with default username and password of admin: admin. The fix is to either remove the superuser or change the username and password to something stronger.

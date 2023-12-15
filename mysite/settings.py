@@ -132,7 +132,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AXES_COOLOFF_TIME = 2 # Brute-force prevention
+# AXES_FAILURE_LIMIT = 3 # Number of guesses before locked
+# AXES_COOLOFF_TIME = 2 # Cooldown time of locked, 2 = 2 hours
 
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Logout user when browser closed
 # SESSION_COOKIE_AGE = 60 # Logout user after 60

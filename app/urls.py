@@ -12,5 +12,5 @@ urlpatterns = [
     path("verify-confirm/", views.verify_confirm, name="verify-confirm"), # 2FA ---------
     path("post/", views.post, name="post"),
     path("open/", views.open, name="open"),
-    path("delete/", views.delete, name="delete"), # ONLY IN TESTING!!!!
+    #path("delete/", views.delete, name="delete"), # ONLY IN TESTING!!!!
 ]
