@@ -102,6 +102,7 @@ def user_logout(request):
     logout(request)
     return redirect('/')
 
+@csrf_protect
 def user_signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
