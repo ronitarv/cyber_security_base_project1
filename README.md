@@ -2,7 +2,7 @@
 pip install django-axes[ipware]
 
 
-### flaws are from owasp top 10 2017
+### flaws are from OWASP Top 10 2017
 
 
 # Essay
@@ -21,9 +21,13 @@ The SQL query should at least be parameterized so that the query is seperated fr
 ## Broken Authentication:
 
 2FA - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/views.py#L94
+
 2FA urls - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/urls.py#L10 
+
 Signup - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/views.py#L105
+
 Brute-force prevention - https://github.com/ronitarv/cyber_security_base_project1/blob/main/mysite/settings.py#L140
+
 Session logout - https://github.com/ronitarv/cyber_security_base_project1/blob/main/mysite/settings.py#L143
 
 Broken Authentication involves factors that might help an attacker access a site with more privilages than given or access an other user's account. A big flaw in the application is not using two-factor authentication. Without two-factor authentication attackers can access a users account just by knowing their username and password. A big security risk is also weak passwords, which will ease brute-force attacks. Using short passwords will make guessing random passwords easier and using common passwords will make brute-force from a password list easy. The application also has a flaw where the is not limitation to how many guesses can be made and therefore brute-force is possible in the first place. The application also doesn't log you out automaticly after browser closed or after some time idle. If automatic logout is not implemented, it can result harm in public computers where the user could forget to logout and some stranger could use the application authenticated as the user.
@@ -45,7 +49,9 @@ The fix would be to most importantly validate the input given in the GET paramet
 ## Security Misconfiguration
 
 url to admin - https://github.com/ronitarv/cyber_security_base_project1/blob/main/mysite/urls.py#L22 
+
 settings and features - https://github.com/ronitarv/cyber_security_base_project1/blob/main/mysite/settings.py 
+
 secret key - https://github.com/ronitarv/cyber_security_base_project1/blob/main/mysite/settings.py#L28 
 
 The application includes multiple things that wouldn't be in production. The application has admin enabled in projects urls.py and installed in settings.py INSTALLED_APPS. If admin is not needed in production then it is a flaw to have it enabled. The superuser also has a default username and password os admin: admin. With these credentials attackers can easily guess them and have access to the whole site. The application also has lots of variables to values that wouldn't be in production. The application has Debug set to True in setting.py. Having debbuging can expose the application code, design and other information that can help and attacker plan an attack and find vulnerabilities. The application also has a SECRET_KEY defined in setting.py. The secret key should be kept safe and accessible by only trusted authors. Therefore it shouldn't be visible in settings.py which can end up in codebase and to non trusted people.
@@ -55,6 +61,7 @@ The fix is to either remove the superuser or change the username and password to
 ## XSS
 
 title XSS - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/templates/app/home.html#L18
+
 content XSS - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/templates/app/home.html#L29
 
 XSS involves inputting malicius html or javascript to a application so that it can result in actions performed by the malicous input on another user or possibly higher priviledged user. The application involves a flaw where when title or content inputted it can be parsed as code when displayed in home.html. When inputted to the title the application will execute the malicious code when the root of the website is loaded as the drop-down menu which has the titles is loaded. The content is only loaded after a user has selected it from the drop-down menu and opened it.
