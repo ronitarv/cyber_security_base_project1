@@ -24,7 +24,7 @@ The SQL query should at least be parameterized so that the query is seperated fr
 
 2FA urls - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/urls.py#L10 
 
-Signup - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/views.py#L105
+Signup - https://github.com/ronitarv/cyber_security_base_project1/blob/main/app/views.py#L106
 
 Brute-force prevention - https://github.com/ronitarv/cyber_security_base_project1/blob/main/mysite/settings.py#L140
 
